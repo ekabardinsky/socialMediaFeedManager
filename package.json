@@ -1,0 +1,26 @@
+{
+  "name": "social-media-feed-manager",
+  "version": "1.0.0",
+  "description": "Manage your feeds by proxying posts from other publics",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekabardinsky/socialMediaFeedManager.git"
+  },
+  "keywords": [
+    "instagram",
+    "bot",
+    "proxy",
+    "translate",
+    "integration"
+  ],
+  "author": "Evgeny Kabardinsky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ekabardinsky/socialMediaFeedManager/issues"
+  },
+  "homepage": "https://github.com/ekabardinsky/socialMediaFeedManager#readme"
+}
