@@ -25,7 +25,7 @@ class VideoService extends GenericEntityService {
         const feeds = await this.getAll();
         const alreadyDownloadedFeed = feeds.find(downloadedFeed => downloadedFeed.feed.id === feed.id);
         if (alreadyDownloadedFeed) {
-            throw Error("Video already downloaded");
+            return alreadyDownloadedFeed;
         }
 
         const downloadLink = feed.video_versions[0].url;
