@@ -22,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/ekabardinsky/socialMediaFeedManager/issues"
   },
-  "homepage": "https://github.com/ekabardinsky/socialMediaFeedManager#readme"
+  "homepage": "https://github.com/ekabardinsky/socialMediaFeedManager#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-async-await": "^1.1.0",
+    "instagram-private-api": "^1.26.0"
+  }
 }

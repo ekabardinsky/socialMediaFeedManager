@@ -2,3 +2,4 @@
 configs/integrations.json
 node_modules
 temp
+storage
