@@ -8,6 +8,10 @@ class GenericEntityService {
         return await this.store.getAll(this.resourceName);
     }
 
+    async get(id) {
+        return await this.store.get(this.resourceName, id);
+    }
+
     async create(data) {
         return await this.store.create(this.resourceName, this.store.getNextUuid(), data);
     }

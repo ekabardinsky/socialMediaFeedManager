@@ -1,5 +1,8 @@
 class GenericController {
     constructor(router, service) {
+        this.router = router;
+        this.service = service;
+
         router.get(`/${service.resourceName}`, async (req, res) => {
             res.json(await service.getAll());
         });

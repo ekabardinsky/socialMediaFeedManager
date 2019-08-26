@@ -10,6 +10,7 @@ app.use(bodyParser.json()); // parse application/json
 // init controllers
 require("./controllers/IntegrationsController")(router);
 require("./controllers/AccountsController")(router);
+require("./controllers/VideosController")(router);
 
 // start to listening for calls
 app.use('/api', router);
