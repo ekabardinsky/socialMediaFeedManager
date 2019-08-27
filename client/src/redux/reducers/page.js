@@ -3,7 +3,7 @@ import {CHANGE_PAGE} from "../actionTypes";
 const currentPath = window.location.pathname.replace("/", "");
 
 const initialState = {
-    pageName: currentPath.charAt(0).toUpperCase() + currentPath.slice(1)
+    pageName: currentPath ? currentPath.charAt(0).toUpperCase() + currentPath.slice(1) : "Accounts"
 };
 
 export default function (state = initialState, action) {

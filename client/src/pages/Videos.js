@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PageSkeleton from "../component/PageSkeleton";
+import PageSkeleton from "../component/PageSkeleton/PageSkeleton";
 
 class Videos extends Component {
     render() {
