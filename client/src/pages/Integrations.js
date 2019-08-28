@@ -3,10 +3,9 @@ import PageSkeleton from "../component/PageSkeleton/PageSkeleton";
 import NewIntegration from "../component/Integrations/NewIntegration";
 import IntegrationItem from "../component/Integrations/IntegrationItem";
 import {get} from "../utils/Api";
-import {getAccountChannels, getAccounts, getIntegrations} from "../redux/actions";
+import {getAccounts, getIntegrations} from "../redux/actions";
 import {connect} from "react-redux";
 import Grid from "@material-ui/core/Grid";
-import integrations from "../redux/reducers/integrations";
 
 class Integrations extends Component {
 

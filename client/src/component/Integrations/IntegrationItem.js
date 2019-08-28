@@ -217,7 +217,7 @@ class IntegrationItem extends Component {
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container direction="row" justify={"center"} alignItems={"center"}>
-                                    <KeyboardArrowDown fontSize="large" style={{fontSize: "150px"}}/>
+                                <KeyboardArrowDown fontSize="large" style={{fontSize: "150px"}}/>
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>

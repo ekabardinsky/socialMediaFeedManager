@@ -2,7 +2,7 @@ const GenericController = require("./GenericController");
 const service = require("../services/AccountsService");
 const instagram = require("../services/InstagramService");
 
-class IntegrationsController extends GenericController {
+class AccountsController extends GenericController {
     constructor(router) {
         super(router, service);
 
@@ -46,4 +46,4 @@ class IntegrationsController extends GenericController {
     }
 }
 
-module.exports = (router) => new IntegrationsController(router);
+module.exports = (router) => new AccountsController(router);

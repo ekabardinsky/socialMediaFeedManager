@@ -1,4 +1,11 @@
-import {CHANGE_PAGE, GET_ACCOUNT_CHANNELS, GET_ACCOUNTS, GET_INTEGRATIONS} from "./actionTypes";
+import {
+    CHANGE_PAGE,
+    GET_ACCOUNT_CHANNELS,
+    GET_ACCOUNTS,
+    GET_INTEGRATIONS,
+    GET_SETTINGS,
+    GET_VIDEOS
+} from "./actionTypes";
 
 export const changePage = pageName => ({
     type: CHANGE_PAGE,
@@ -20,4 +27,14 @@ export const getAccountChannels = (channels) => ({
 export const getIntegrations = (integrations) => ({
     type: GET_INTEGRATIONS,
     payload: integrations
+});
+
+export const getVideos = (videos) => ({
+    type: GET_VIDEOS,
+    payload: videos
+});
+
+export const getSettings = (settings) => ({
+    type: GET_SETTINGS,
+    payload: settings
 });

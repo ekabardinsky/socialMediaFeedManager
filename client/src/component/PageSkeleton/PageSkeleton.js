@@ -64,6 +64,7 @@ class PageSkeleton extends Component {
                             <Link to="./integrations"><MenuItem
                                 onClick={pickAPage("Integrations")}>Integrations</MenuItem></Link>
                             <Link to="./videos"><MenuItem onClick={pickAPage("Videos")}>Videos</MenuItem></Link>
+                            <Link to="./settings"><MenuItem onClick={pickAPage("Settings")}>Settings</MenuItem></Link>
                         </Menu>
                         <Typography variant="h6">
                             {pageName}

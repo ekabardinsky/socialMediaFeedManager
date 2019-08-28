@@ -1,7 +1,7 @@
 const GenericController = require("./GenericController");
 const service = require("../services/VideoService");
 
-class IntegrationsController extends GenericController {
+class VideosController extends GenericController {
     constructor(router) {
         super(router, service);
 
@@ -19,4 +19,4 @@ class IntegrationsController extends GenericController {
     }
 }
 
-module.exports = (router) => new IntegrationsController(router);
+module.exports = (router) => new VideosController(router);

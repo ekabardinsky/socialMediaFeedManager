@@ -1,21 +1,15 @@
 import React, {Component} from 'react';
-import {getAccounts} from "../../redux/actions";
 import {connect} from "react-redux";
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from "@material-ui/core/Typography";
-import { Player } from 'video-react';
+import {Player} from 'video-react';
 
 class VideoItem extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const video = this.props.video;
         const username = video.feed.user.full_name ? video.feed.user.full_name : video.feed.user.username;
