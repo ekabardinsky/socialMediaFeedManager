@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {changePage} from "../../redux/actions";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom'
+import Grid from "@material-ui/core/Grid";
 // eslint-disable-next-line
 import style from './index.scss'
 
@@ -46,7 +47,7 @@ class PageSkeleton extends Component {
         };
 
         return (
-            <div>
+            <div className={style.container}>
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" aria-label="menu"
@@ -58,8 +59,10 @@ class PageSkeleton extends Component {
                             keepMounted
                             open={Boolean(anchorEl)}
                             onClose={this.handleClose.bind(this)}>
-                            <Link to="./accounts"><MenuItem onClick={pickAPage("Accounts")}>Accounts</MenuItem></Link>
-                            <Link to="./integrations"><MenuItem onClick={pickAPage("Integrations")}>Integrations</MenuItem></Link>
+                            <Link to="./accounts"><MenuItem
+                                onClick={pickAPage("Accounts")}>Accounts</MenuItem></Link>
+                            <Link to="./integrations"><MenuItem
+                                onClick={pickAPage("Integrations")}>Integrations</MenuItem></Link>
                             <Link to="./videos"><MenuItem onClick={pickAPage("Videos")}>Videos</MenuItem></Link>
                         </Menu>
                         <Typography variant="h6">
@@ -67,7 +70,13 @@ class PageSkeleton extends Component {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                {this.props.children}
+
+                <Grid container spacing={3} justify={"center"} className={"container"}>
+                    <Grid item xs={12}/>
+                    <Grid item xs={12}>
+                        {this.props.children}
+                    </Grid>
+                </Grid>
             </div>
         );
     }
@@ -79,7 +88,9 @@ const mapStateToProps = state => {
     }
 };
 
+const mapDispatchToProps = {changePage};
+
 export default connect(
     mapStateToProps,
-    {changePage}
+    mapDispatchToProps
 )(PageSkeleton);
