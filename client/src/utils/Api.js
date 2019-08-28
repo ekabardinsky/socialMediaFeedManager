@@ -25,5 +25,5 @@ function apiCall(uri, method, body, action, failureAction) {
 
 export const get = (uri, action, failureAction) => apiCall(uri, 'GET', undefined, action, failureAction);
 export const post = (uri, body, action, failureAction) => apiCall(uri, 'POST', body, action, failureAction);
-export const put = (uri, body, action, failureAction) => apiCall(uri, 'POST', body, action, failureAction);
-export const del = (uri, action, failureAction) => apiCall(uri, 'POST', undefined, action, failureAction);
+export const put = (uri, body, action, failureAction) => apiCall(uri, 'PUT', body, action, failureAction);
+export const del = (uri, action, failureAction) => apiCall(uri, 'DELETE', undefined, action, failureAction);

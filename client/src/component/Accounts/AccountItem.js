@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import {del, get, put} from "../../utils/Api";
 
 class AccountItem extends Component {
     constructor(props) {
@@ -20,16 +21,36 @@ class AccountItem extends Component {
     }
 
     handlingUsernameChange(username) {
-        this.setState({username, isNeedToSave: true})
+        this.setState({username: username.target.value, isNeedToSave: true})
     }
 
     handlingPasswordChange(password) {
-        this.setState({password, isNeedToSave: true})
+        this.setState({password: password.target.value, isNeedToSave: true})
+    }
+
+    handleDelete() {
+        const account = this.props.account;
+
+        del(`/api/accounts/${account.id}`, () => {
+            get("/api/accounts", this.props.getAccounts);
+        })
+    }
+
+    handleSave() {
+        const account = this.props.account;
+        put(`/api/accounts/${account.id}`, {
+            ...account,
+            username: this.state.username,
+            password: this.state.password
+        }, () => {
+            get("/api/accounts", this.props.getAccounts);
+        })
     }
 
     render() {
         const account = this.props.account;
-        const {isNeedToSave} = this.state;
+        const {isNeedToSave, username, password} = this.state;
+        const disableSaveButton = !(isNeedToSave && username && password);
 
         return <Card elevation={4}>
             <CardContent>
@@ -41,7 +62,7 @@ class AccountItem extends Component {
                         <TextField
                             label="Username"
                             onChange={this.handlingUsernameChange.bind(this)}
-                            defaultValue={account.username}
+                            value={username}
                             fullWidth={true}
                         />
                     </Grid>
@@ -52,16 +73,15 @@ class AccountItem extends Component {
                             onChange={this.handlingPasswordChange.bind(this)}
                             type="password"
                             autoComplete="current-password"
-                            defaultValue={account.password}
+                            value={password}
                             fullWidth={true}
                         />
                     </Grid>
                 </Grid>
             </CardContent>
             <CardActions>
-                <Button disabled={!isNeedToSave} size="small">Save</Button>
-                <Button size="small">Edit</Button>
-                <Button size="small">Delete</Button>
+                <Button disabled={disableSaveButton} size="small" onClick={this.handleSave.bind(this)}>Save</Button>
+                <Button size="small" onClick={this.handleDelete.bind(this)}>Delete</Button>
             </CardActions>
         </Card>
     }
