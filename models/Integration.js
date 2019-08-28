@@ -1,9 +1,9 @@
 class Integration {
-    type;
-    sourceAccountId;
-    sourceChannelId;
+    id;
+    sourceAccount;
+    sourceChannel;
     lastSyncType;
-    targetAccountId;
+    targetAccount;
 }
 
 module.exports = Integration;

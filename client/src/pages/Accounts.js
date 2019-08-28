@@ -20,7 +20,7 @@ class Accounts extends Component {
                 <Grid container direction="row" spacing={3}>
                     {
                         accounts.map(account => {
-                            return <Grid item xs={3} key={account.id}><AccountItem account={account}/></Grid>
+                            return <Grid item xs={4} key={account.id}><AccountItem account={account}/></Grid>
                         })
                     }
                     <Grid item xs={12}><NewAccount/></Grid>

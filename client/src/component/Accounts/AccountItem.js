@@ -16,7 +16,8 @@ class AccountItem extends Component {
         this.state = {
             username: this.props.account.username,
             password: this.props.account.password,
-            isNeedToSave: false
+            isNeedToSave: false,
+            edit: false
         }
     }
 
@@ -28,12 +29,18 @@ class AccountItem extends Component {
         this.setState({password: password.target.value, isNeedToSave: true})
     }
 
+    handleEdit() {
+        this.setState({edit: !this.state.edit})
+    }
+
     handleDelete() {
         const account = this.props.account;
 
         del(`/api/accounts/${account.id}`, () => {
             get("/api/accounts", this.props.getAccounts);
-        })
+        });
+
+        this.setState({edit: false})
     }
 
     handleSave() {
@@ -44,12 +51,14 @@ class AccountItem extends Component {
             password: this.state.password
         }, () => {
             get("/api/accounts", this.props.getAccounts);
-        })
+        });
+
+        this.setState({edit: false})
     }
 
     render() {
         const account = this.props.account;
-        const {isNeedToSave, username, password} = this.state;
+        const {isNeedToSave, username, password, edit} = this.state;
         const disableSaveButton = !(isNeedToSave && username && password);
 
         return <Card elevation={4}>
@@ -60,6 +69,7 @@ class AccountItem extends Component {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
+                            disabled={!edit}
                             label="Username"
                             onChange={this.handlingUsernameChange.bind(this)}
                             value={username}
@@ -69,6 +79,7 @@ class AccountItem extends Component {
 
                     <Grid item xs={6}>
                         <TextField
+                            disabled={!edit}
                             label="Password"
                             onChange={this.handlingPasswordChange.bind(this)}
                             type="password"
@@ -81,6 +92,7 @@ class AccountItem extends Component {
             </CardContent>
             <CardActions>
                 <Button disabled={disableSaveButton} size="small" onClick={this.handleSave.bind(this)}>Save</Button>
+                <Button size="small" onClick={this.handleEdit.bind(this)}>Edit</Button>
                 <Button size="small" onClick={this.handleDelete.bind(this)}>Delete</Button>
             </CardActions>
         </Card>
