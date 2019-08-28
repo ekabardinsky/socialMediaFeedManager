@@ -7,7 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Chip from '@material-ui/core/Chip';
 import {get, post} from "../../utils/Api";
+import Typography from "@material-ui/core/Typography";
 
 class Settings extends Component {
     constructor(props) {
@@ -15,8 +17,10 @@ class Settings extends Component {
         this.state = {
             isNeedToSave: false,
             edit: false,
-            username: "",
-            password: ""
+            username: this.props.settings.username,
+            password: this.props.settings.password,
+            defaultPostHashTags: this.props.settings.defaultPostHashTags,
+            newTagValue: ""
         }
     }
 
@@ -37,25 +41,43 @@ class Settings extends Component {
         post(`/api/settings/current`, {
             ...settings,
             username: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            defaultPostHashTags: this.state.defaultPostHashTags
         }, () => {
             get(`/api/settings/current`, this.props.getSettings);
         });
 
-        this.setState({edit: false, isNeedToSave: false})
+        this.setState({edit: false, isNeedToSave: false, newTagValue: ""})
     }
 
-    getSettings() {
-        return {
-            username: this.state.username ? this.state.username : this.props.settings.username,
-            password: this.state.password ? this.state.password : this.props.settings.password
+    handleTagRemove(removedTag) {
+        if (this.state.edit) {
+            const defaultPostHashTags = this.state.defaultPostHashTags.slice().filter(tag => tag !== removedTag);
+            this.setState({isNeedToSave: true, defaultPostHashTags});
         }
     }
 
+    handleNewTagKeyPress(event) {
+        if (event.key === "Enter") {
+            const defaultPostHashTags = this.state.defaultPostHashTags.slice();
+            const newTag = this.state.newTagValue;
+            if (!defaultPostHashTags.find(tag => tag === newTag)) {
+                defaultPostHashTags.push(newTag);
+                this.setState({isNeedToSave: true, defaultPostHashTags, newTagValue: ""});
+            }
+        }
+    }
+
+    handleNewTagChange(event) {
+        this.setState({newTagValue: event.target.value});
+    }
+
     render() {
-        const {isNeedToSave, edit } = this.state;
-        const {username, password} = this.getSettings();
-        const disableSaveButton = !(isNeedToSave && username && password);
+        const {isNeedToSave, edit, username, password, defaultPostHashTags, newTagValue} = this.state;
+        const disableSaveButton = !(isNeedToSave && username && password && defaultPostHashTags);
+        const handleTagRemove = (tag) => () => {
+            this.handleTagRemove(tag)
+        };
 
         return <Card elevation={4}>
             <CardContent>
@@ -78,6 +100,27 @@ class Settings extends Component {
                             type="password"
                             autoComplete="current-password"
                             value={password}
+                            fullWidth={true}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="h6">{"Default hash tags"}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        {
+                            defaultPostHashTags.map(tag => {
+                                return <Chip
+                                    key={tag}
+                                    label={tag}
+                                    onDelete={handleTagRemove(tag)}/>;
+                            })
+                        }
+                        <TextField
+                            disabled={!edit}
+                            label="New Tag"
+                            onKeyPress={this.handleNewTagKeyPress.bind(this)}
+                            onChange={this.handleNewTagChange.bind(this)}
+                            value={newTagValue}
                             fullWidth={true}
                         />
                     </Grid>
