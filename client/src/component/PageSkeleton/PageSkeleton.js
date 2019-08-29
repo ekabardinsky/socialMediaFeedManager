@@ -9,9 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {changePage} from "../../redux/actions";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom'
-import Grid from "@material-ui/core/Grid";
-// eslint-disable-next-line
-import style from './index.scss'
 
 class PageSkeleton extends Component {
 
@@ -47,7 +44,7 @@ class PageSkeleton extends Component {
         };
 
         return (
-            <div className={style.container}>
+            <div>
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" aria-label="menu"

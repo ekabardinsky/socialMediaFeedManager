@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import {getSettings} from "../../redux/actions";
 import {connect} from "react-redux";
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -79,58 +76,59 @@ class Settings extends Component {
             this.handleTagRemove(tag)
         };
 
-        return <Card elevation={4}>
-            <CardContent>
-                <Grid container direction="row" spacing={3}>
-                    <Grid item xs={6}>
-                        <TextField
-                            disabled={!edit}
-                            label="Username"
-                            onChange={this.handlingUsernameChange.bind(this)}
-                            value={username}
-                            fullWidth={true}
-                        />
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        <TextField
-                            disabled={!edit}
-                            label="Password"
-                            onChange={this.handlingPasswordChange.bind(this)}
-                            type="password"
-                            autoComplete="current-password"
-                            value={password}
-                            fullWidth={true}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="h6">{"Default hash tags"}</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        {
-                            defaultPostHashTags.map(tag => {
-                                return <Chip
-                                    key={tag}
-                                    label={tag}
-                                    onDelete={handleTagRemove(tag)}/>;
-                            })
-                        }
-                        <TextField
-                            disabled={!edit}
-                            label="New Tag"
-                            onKeyPress={this.handleNewTagKeyPress.bind(this)}
-                            onChange={this.handleNewTagChange.bind(this)}
-                            value={newTagValue}
-                            fullWidth={true}
-                        />
-                    </Grid>
-                </Grid>
-            </CardContent>
-            <CardActions>
+        return <Grid container direction="row" spacing={3}>
+            <Grid item xs={12} className={"container-with-border"}>
+                <div className={"section"}>
+                    <Typography variant="h6">{"Login configuration"}</Typography>
+                    <TextField
+                        className={"field"}
+                        disabled={!edit}
+                        label="Username"
+                        onChange={this.handlingUsernameChange.bind(this)}
+                        value={username}
+                        fullWidth={true}
+                    />
+                    <TextField
+                        className={"field"}
+                        disabled={!edit}
+                        label="Password"
+                        onChange={this.handlingPasswordChange.bind(this)}
+                        type="password"
+                        autoComplete="current-password"
+                        value={password}
+                        fullWidth={true}
+                    />
+                </div>
+            </Grid>
+            <Grid item xs={12}/>
+            <Grid item xs={12} className={"container-with-border"}>
+                <div className={"section"}>
+                    <Typography variant="h6">{"Default hash tags"}</Typography>
+                    <TextField
+                        disabled={!edit}
+                        label="New Tag"
+                        onKeyPress={this.handleNewTagKeyPress.bind(this)}
+                        onChange={this.handleNewTagChange.bind(this)}
+                        value={newTagValue}
+                        fullWidth={true}
+                    />
+                    <div>{
+                        defaultPostHashTags.map(tag => {
+                            return <Chip
+                                className={"field"}
+                                key={tag}
+                                label={tag}
+                                onDelete={handleTagRemove(tag)}/>;
+                        })
+                    }
+                    </div>
+                </div>
+            </Grid>
+            <Grid item xs={12}>
                 <Button disabled={disableSaveButton} size="small" onClick={this.handleSave.bind(this)}>Save</Button>
                 <Button size="small" onClick={this.handleEdit.bind(this)}>Edit</Button>
-            </CardActions>
-        </Card>
+            </Grid>
+        </Grid>
     }
 }
 

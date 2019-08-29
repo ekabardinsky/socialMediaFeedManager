@@ -11,12 +11,9 @@ import {del, get, put} from "../../utils/Api";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import style from "./index.scss"
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Autorenew from '@material-ui/icons/Autorenew';
 import moment from 'moment'
-// eslint-disable-next-line
-style.source;
 
 class IntegrationItem extends Component {
     constructor(props) {
@@ -197,7 +194,7 @@ class IntegrationItem extends Component {
                     <Grid item hidden={edit}>
                         <Grid item xs={12}>
                             <Grid container direction="row" justify={"flex-start"} alignItems={"center"}
-                                  spacing={3} className={"source"}>
+                                  spacing={3} className={"container-with-border"}>
                                 <Grid item xs={10}>
                                     <Typography variant="h6">{"Integration Source"}</Typography>
                                 </Grid>
@@ -222,7 +219,7 @@ class IntegrationItem extends Component {
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container direction="row" justify={"flex-start"} alignItems={"center"}
-                                  spacing={3} className={"source"}>
+                                  spacing={3} className={"container-with-border"}>
                                 <Grid item xs={12}>
                                     <Typography variant="h6">{"Integration Target"}</Typography>
                                 </Grid>

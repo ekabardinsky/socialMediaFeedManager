@@ -4,8 +4,10 @@ import Accounts from './pages/Accounts';
 import Integrations from './pages/Integrations';
 import Videos from './pages/Videos';
 import Settings from "./pages/Settings";
-import Grid from "@material-ui/core/Grid";
-import PageSkeleton from "./component/PageSkeleton/PageSkeleton";
+import styles from './index.scss';
+
+// eslint-disable-next-line
+styles.section;
 
 export default class App extends Component {
     render() {

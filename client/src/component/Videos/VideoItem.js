@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from "@material-ui/core/Typography";
-import {Player} from 'video-react';
 
 class VideoItem extends Component {
     render() {

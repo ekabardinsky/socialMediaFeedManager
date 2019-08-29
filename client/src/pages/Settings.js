@@ -4,6 +4,7 @@ import {getSettings} from "../redux/actions";
 import {connect} from "react-redux";
 import Settings from "../component/Settings/Settings";
 import {get} from "../utils/Api";
+import Grid from "@material-ui/core/Grid";
 
 class Videos extends Component {
     constructor(props) {
@@ -15,7 +16,11 @@ class Videos extends Component {
     render() {
         return (
             <PageSkeleton>
-                {(this.props.settings.id) ? <Settings/> : null}
+                <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12}>
+                        {(this.props.settings.id) ? <Settings/> : null}
+                    </Grid>
+                </Grid>
             </PageSkeleton>
         );
     }
