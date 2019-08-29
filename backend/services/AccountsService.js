@@ -1,8 +1,9 @@
 const GenericEntityService = require("./GenericEntityService");
 const instagramService = require("../services/InstagramService");
 const videoService = require("../services/VideoService");
+const logger = require("../utils/logger");
 
-class AccountsService extends  GenericEntityService {
+class AccountsService extends GenericEntityService {
     constructor() {
         super("accounts");
     }
@@ -31,13 +32,13 @@ class AccountsService extends  GenericEntityService {
         const account = await this.get(accountId);
 
         if (account.type === 'instagram') {
+            logger.info(`Download video from ${account.type} for feed ${JSON.stringify(feed)}`);
             return await videoService.downloadFeedVideo(feed, account.type);
         } else {
             throw Error("Not recognized type of account " + account.type);
         }
     }
 }
-
 
 
 module.exports = new AccountsService();
