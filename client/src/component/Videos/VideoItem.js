@@ -25,7 +25,8 @@ class VideoItem extends Component {
                         <Typography variant="h6">{username}</Typography>
                     </Grid>
                     <Grid item xs={10}>
-                        <Player src={`/${video.filepath}`}/>
+                        <video src={`/${video.filepath}`} width="480" height="320" controls>
+                        </video>
                     </Grid>
                     <Grid item xs={10}>
                         <Typography>{caption}</Typography>

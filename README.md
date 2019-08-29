@@ -1,1 +1,1 @@
-# socialMediaFeedManager
+# SocialMediaFeedManager

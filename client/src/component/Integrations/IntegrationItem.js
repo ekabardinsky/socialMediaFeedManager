@@ -128,10 +128,10 @@ class IntegrationItem extends Component {
                                     return <MenuItem key={account.id} value={account.id}>
                                         <Grid container direction="row" alignContent={"center"} justify={"flex-start"}
                                               spacing={3}>
-                                            <Grid item xs={1}>
+                                            <Grid item xs={2}>
                                                 <Avatar alt={`${account.type}`} src={`/images/${account.type}.png`}/>
                                             </Grid>
-                                            <Grid item xs={8}>
+                                            <Grid item xs={10}>
                                                 <Typography variant="h6">{account.username}</Typography>
                                             </Grid>
                                         </Grid>
@@ -155,10 +155,10 @@ class IntegrationItem extends Component {
                                     return <MenuItem key={channel.pk} value={channel.pk}>
                                         <Grid container direction="row" alignContent={"center"} justify={"flex-start"}
                                               spacing={3}>
-                                            <Grid item xs={1}>
+                                            <Grid item xs={2}>
                                                 <Avatar alt={`${name}`} src={channel.profile_pic_url}/>
                                             </Grid>
-                                            <Grid item xs={8}>
+                                            <Grid item xs={10}>
                                                 <Typography variant="h6">{name}</Typography>
                                             </Grid>
                                         </Grid>
@@ -181,10 +181,10 @@ class IntegrationItem extends Component {
                                     return <MenuItem key={account.id} value={account.id}>
                                         <Grid container direction="row" alignContent={"center"} justify={"flex-start"}
                                               spacing={3}>
-                                            <Grid item xs={1}>
+                                            <Grid item xs={2}>
                                                 <Avatar alt={`${account.type}`} src={`/images/${account.type}.png`}/>
                                             </Grid>
-                                            <Grid item xs={8}>
+                                            <Grid item xs={10}>
                                                 <Typography variant="h6">{account.username}</Typography>
                                             </Grid>
                                         </Grid>
@@ -205,12 +205,12 @@ class IntegrationItem extends Component {
                                     <Avatar alt={`${sourceAccount.type}`}
                                             src={`/images/${sourceAccount.type}.png`}/>
                                 </Grid>
-                                <Grid item xs={3}>
+                                <Grid item xs={4}>
                                     <Avatar alt={`${selectedSourceChannelName}`}
                                             src={sourceChannel.profile_pic_url}
                                             style={{width: "100px", height: "100px"}}/>
                                 </Grid>
-                                <Grid item xs={9}>
+                                <Grid item xs={8}>
                                     <Typography variant="h6">{selectedSourceChannelName}</Typography>
                                 </Grid>
                             </Grid>

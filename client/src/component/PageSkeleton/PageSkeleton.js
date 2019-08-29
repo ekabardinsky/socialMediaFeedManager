@@ -71,13 +71,9 @@ class PageSkeleton extends Component {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-
-                <Grid container spacing={3} justify={"center"} className={"container"}>
-                    <Grid item xs={12}/>
-                    <Grid item xs={12}>
-                        {this.props.children}
-                    </Grid>
-                </Grid>
+                <div className={"container"}>
+                    {this.props.children}
+                </div>
             </div>
         );
     }
