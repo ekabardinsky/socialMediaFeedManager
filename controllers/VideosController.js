@@ -14,7 +14,7 @@ class VideosController extends GenericController {
         if (feed.video_versions) {
             res.json(await service.downloadFeedVideo(feed));
         } else {
-            throw Error("Not recognized type of account " + account.type);
+            throw Error("Not recognized type of feed " + feed.type);
         }
     }
 }
