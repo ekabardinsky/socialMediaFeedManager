@@ -9,10 +9,10 @@ require("express-async-await")(router); // async support
 app.use(bodyParser.json()); // parse application/json
 
 // init controllers
-require("./controllers/IntegrationsController")(router);
-require("./controllers/AccountsController")(router);
-require("./controllers/VideosController")(router);
-require("./controllers/SettingsController")(router);
+require("./backend/controllers/IntegrationsController")(router);
+require("./backend/controllers/AccountsController")(router);
+require("./backend/controllers/VideosController")(router);
+require("./backend/controllers/SettingsController")(router);
 
 // start to listening for calls
 app.use('/api', router);
