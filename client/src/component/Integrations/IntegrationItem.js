@@ -72,7 +72,7 @@ class IntegrationItem extends Component {
             ...integration,
             sourceAccount: accounts.find(account => account.id === selectedSourceAccount),
             sourceChannel: newAccount.channels.find(channel => channel.pk === selectedSourceChannel),
-            lastSyncType: moment().unix(),
+            lastSyncTime: moment().unix(),
             targetAccount: accounts.find(account => account.id === selectedTargetAccount)
         }, () => {
             this.setState({
@@ -235,7 +235,7 @@ class IntegrationItem extends Component {
                                     <Autorenew/>
                                 </Grid>
                                 <Grid item xs={11}>
-                                    <Typography>{`Last Synchronization performed at ${moment.unix(integration.lastSyncType).format("HH:mm:ss DD.MM.YYYY")}`}
+                                    <Typography>{`Last Synchronization performed at ${moment.unix(integration.lastSyncTime).format("HH:mm:ss DD.MM.YYYY")}`}
                                     </Typography>
                                 </Grid>
                             </Grid>

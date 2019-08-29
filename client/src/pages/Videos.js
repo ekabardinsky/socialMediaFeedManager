@@ -20,7 +20,7 @@ class Videos extends Component {
                 <Grid container direction="row" spacing={3}>
                     {
                         videos.map(video => {
-                            return <Grid item xs={6} key={video.id}><VideoItem video={video}/></Grid>
+                            return <Grid item xs={3} key={video.id}><VideoItem video={video}/></Grid>
                         })
                     }
                 </Grid>

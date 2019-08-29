@@ -21,7 +21,15 @@ class VideoService extends GenericEntityService {
         }
     }
 
-    async downloadFeedVideo(feed) {
+    async downloadFeedVideo(feed, type) {
+        if (type === 'instagram') {
+            return await this.downloadInstagramFeedVideo(feed);
+        } else {
+            throw Error("Not recognized type of account " + type);
+        }
+    }
+
+    async downloadInstagramFeedVideo(feed) {
         const feeds = await this.getAll();
         const alreadyDownloadedFeed = feeds.find(downloadedFeed => downloadedFeed.feed.id === feed.id);
         if (alreadyDownloadedFeed) {

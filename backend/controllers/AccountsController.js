@@ -1,6 +1,5 @@
 const GenericController = require("./GenericController");
 const service = require("../services/AccountsService");
-const instagram = require("../services/InstagramService");
 
 class AccountsController extends GenericController {
     constructor(router) {
@@ -12,37 +11,15 @@ class AccountsController extends GenericController {
     }
 
     async getChannelsForSpecificAccount(req, res) {
-        const account = await service.get(req.params.id);
-
-        if (account.type === 'instagram') {
-            res.json(await instagram.getChannels(account));
-        } else {
-            throw Error("Not recognized type of account " + account.type);
-        }
+        res.json(await service.getChannelsForSpecificAccount(req.params.id));
     }
 
     async getChannelFeedsForSpecificAccount(req, res) {
-        const account = await service.get(req.params.id);
-        const channel = req.params.channel;
-        const takenAt = req.query.takenAt;
-
-        if (account.type === 'instagram') {
-            res.json(await instagram.getFeedsByChannel(account, channel, takenAt));
-        } else {
-            throw Error("Not recognized type of account " + account.type);
-        }
+        res.json(await service.getChannelFeedsForSpecificAccount(req.params.id, req.params.channel, req.query.takenAt));
     }
 
     async downloadChannelFeedsForSpecificAccount(req, res) {
-        const account = await service.get(req.params.id);
-        const channel = req.params.channel;
-        const feed = req.params.feed;
-
-        if (account.type === 'instagram') {
-            res.json(await instagram.downloadFeedVideo(account, channel, feed));
-        } else {
-            throw Error("Not recognized type of account " + account.type);
-        }
+        res.json(await service.downloadChannelFeedsForSpecificAccount(req.params.id, req.params.channel, req.params.feed));
     }
 }
 

@@ -57,7 +57,7 @@ class NewAccount extends Component {
         post("/api/integrations", {
             sourceAccount: accounts.find(account => account.id === selectedSourceAccount),
             sourceChannel: newAccount.channels.find(channel => channel.pk === selectedSourceChannel),
-            lastSyncType: moment().unix(),
+            lastSyncTime: moment().unix(),
             targetAccount: accounts.find(account => account.id === selectedTargetAccount)
         }, () => {
             this.setState({

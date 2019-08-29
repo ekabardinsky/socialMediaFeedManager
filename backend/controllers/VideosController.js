@@ -12,7 +12,7 @@ class VideosController extends GenericController {
         const feed = req.body;
 
         if (feed.video_versions) {
-            res.json(await service.downloadFeedVideo(feed));
+            res.json(await service.downloadFeedVideo(feed, "instagram"));
         } else {
             throw Error("Not recognized type of feed " + feed.type);
         }

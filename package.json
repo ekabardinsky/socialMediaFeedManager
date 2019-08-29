@@ -28,6 +28,9 @@
     "express": "^4.17.1",
     "express-async-await": "^1.1.0",
     "instagram-private-api": "^1.26.0",
+    "log4js": "^5.1.0",
+    "moment": "^2.24.0",
+    "node-cron": "^2.0.3",
     "request-promise": "^4.2.4"
   }
 }

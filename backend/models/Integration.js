@@ -2,7 +2,7 @@ class Integration {
     id;
     sourceAccount;
     sourceChannel;
-    lastSyncType;
+    lastSyncTime;
     targetAccount;
 }
 
