@@ -3,5 +3,5 @@ const FeedsPublisherJob = require("./FeedsPublisherJob");
 
 
 // run jobs
-// new FeedsListenerJob().start();
+new FeedsListenerJob().start();
 new FeedsPublisherJob().start();

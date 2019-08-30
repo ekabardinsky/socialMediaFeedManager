@@ -80,9 +80,8 @@ class PublicationsQueueService extends GenericEntityService {
         const video = await videoService.get(publication.video.id);
 
         if (account.type === 'instagram') {
-            logger.info(`Publish video to ${account.id} for video ${account.id}`);
             try {
-                const result = await instagramService.publish(account, video, publication);
+                await instagramService.publish(account, video, publication);
                 await videoService.update(video.id, {...video, published: true});
             } catch (e) {
                 await videoService.update(video.id, {...video, published: true, failureMessage: JSON.stringify(e)});
