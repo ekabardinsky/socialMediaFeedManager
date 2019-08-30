@@ -1,10 +1,7 @@
-const GenericController = require("./GenericController");
 const service = require("../services/SettingsService");
 
-class SettingsController extends GenericController {
+class SettingsController {
     constructor(router) {
-        super(router, service);
-
         router.get(`/${service.resourceName}/current`, this.getSettings);
         router.post(`/${service.resourceName}/current`, this.updateSettings);
     }
