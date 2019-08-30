@@ -3,6 +3,7 @@ const request = require('request-promise');
 const fs = require("fs").promises;
 const path = require('path');
 const mediaFilesStore = "media";
+const ThumbnailGenerator = require('video-thumbnail-generator');
 
 class VideoService extends GenericEntityService {
     constructor() {
@@ -50,6 +51,18 @@ class VideoService extends GenericEntityService {
             feed,
             filepath
         })
+    }
+
+    async generateThumbnail(videoId, options) {
+        const video = await this.get(videoId);
+        const tg = new ThumbnailGenerator.default({
+            sourcePath: video.filepath,
+            thumbnailPath: `${mediaFilesStore}${path.sep}`
+        });
+
+        const generatedThumbnail = await tg.generateOneByPercent(30, options);
+
+        return `${mediaFilesStore}${path.sep}${generatedThumbnail}`;
     }
 }
 

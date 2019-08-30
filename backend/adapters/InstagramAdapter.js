@@ -1,5 +1,7 @@
 const IgApiClient = require("instagram-private-api").IgApiClient;
 const logger = require("../utils/logger");
+const videoService = require("../services/VideoService");
+const fs = require("fs");
 
 class InstagramAdapter {
     loggedInUsers = {};
@@ -44,12 +46,37 @@ class InstagramAdapter {
 
     async publish(account, video, publication) {
         const type = publication.publication.type;
+        const {ig, auth} = await this.getClient(account);
 
         logger.info(`Publish new ${type} for account ${account.id} with video ${video.id}`);
 
-        return {
-            success: true
+        // generate thumbnail
+        const thumbnail = await videoService.generateThumbnail(video.id, {
+            size: '800x800',
+            filename: `${video.id}_thumbnail.jpg`
+        });
+
+        if (type === "feed") {
+            const feed = await this.uploadStoryWithMedia(ig, video.filepath, thumbnail, publication.publication);
+            return {
+                success: true,
+                publication: feed
+            }
         }
+
+        throw Error(`Not supported type of publication ${type}`);
+    }
+
+    async uploadStoryWithMedia(ig, filepath, thumbnailFilepath, publication) {
+        const video = Buffer.from(fs.readFileSync(filepath, {encoding: 'binary'}), 'binary');
+        const coverImage = Buffer.from(fs.readFileSync(thumbnailFilepath, {encoding: 'binary'}), 'binary');
+
+        // upload video
+        return await ig.publish.video({
+            video,
+            coverImage,
+            caption: publication.comment
+        });
     }
 }
 

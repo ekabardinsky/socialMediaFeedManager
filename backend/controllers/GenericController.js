@@ -7,6 +7,10 @@ class GenericController {
             res.json(await service.getAll());
         });
 
+        router.get(`/${service.resourceName}/:id`, async (req, res) => {
+            res.json(await service.get(req.params.id));
+        });
+
         router.post(`/${service.resourceName}`, async (req, res) => {
             res.json(await service.create(req.body));
         });

@@ -13,4 +13,5 @@ export default interface PublicationsQueue {
     date: bigint;
     published: boolean;
     failureMessage: string;
+    metadata: any; // rest from adapter
 }

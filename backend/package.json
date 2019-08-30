@@ -31,6 +31,7 @@
     "log4js": "^5.1.0",
     "moment": "^2.24.0",
     "node-cron": "^2.0.3",
-    "request-promise": "^4.2.4"
+    "request-promise": "^4.2.4",
+    "video-thumbnail-generator": "^1.1.3"
   }
 }
