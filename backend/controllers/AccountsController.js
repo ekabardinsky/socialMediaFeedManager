@@ -10,17 +10,23 @@ class AccountsController extends GenericController {
         router.get(`/${service.resourceName}/:id/channels/:channel/feeds`, this.getChannelFeedsForSpecificAccount);
         router.post(`/${service.resourceName}/:id/channels/:channel/feeds/:feed`, this.downloadChannelFeedsForSpecificAccount);
         router.post(`/${service.resourceName}/:id/videos/:videoId/schedule`, this.scheduleVideo);
+        router.get(`/${service.resourceName}/:id/publishTypes`, this.getAllAdapterPublishTypes);
+    }
+
+    async getAllAdapterPublishTypes(req, res) {
+        res.json(await service.getAvailablePublishTypes(req.params.id));
     }
 
     async scheduleVideo(req, res) {
         const accountId = req.params.id;
         const videoId = req.params.videoId;
         const timestamp = req.query.timestamp;
+        const publication = req.body;
 
         if (timestamp) {
-            res.json(await publicationsQueueService.scheduleVideoAtSpecificTime(accountId, videoId, timestamp));
+            res.json(await publicationsQueueService.scheduleVideoAtSpecificTime(publication, accountId, videoId, timestamp));
         } else {
-            res.json(await publicationsQueueService.scheduleVideo(accountId, videoId));
+            res.json(await publicationsQueueService.scheduleVideo(publication, accountId, videoId));
         }
     }
 

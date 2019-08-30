@@ -1,6 +1,7 @@
 const IgApiClient = require("instagram-private-api").IgApiClient;
+const logger = require("../utils/logger");
 
-class InstagramService {
+class InstagramAdapter {
     loggedInUsers = {};
 
     async login(account) {
@@ -36,7 +37,21 @@ class InstagramService {
             return feeds;
         }
     }
+
+    async getAvailablePublishTypes() {
+        return ["feed"];
+    }
+
+    async publish(account, video, publication) {
+        const type = publication.publication.type;
+
+        logger.info(`Publish new ${type} for account ${account.id} with video ${video.id}`);
+
+        return {
+            success: true
+        }
+    }
 }
 
 // kind of singleton
-module.exports = new InstagramService();
+module.exports = new InstagramAdapter();

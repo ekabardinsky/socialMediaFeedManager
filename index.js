@@ -13,6 +13,7 @@ require("./backend/controllers/IntegrationsController")(router);
 require("./backend/controllers/AccountsController")(router);
 require("./backend/controllers/VideosController")(router);
 require("./backend/controllers/SettingsController")(router);
+require("./backend/controllers/PublicationsQueueController")(router);
 
 // start to listening for calls
 app.use('/api', router);

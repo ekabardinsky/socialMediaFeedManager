@@ -1,7 +1,9 @@
 const GenericEntityService = require("./GenericEntityService");
 const videoService = require("./VideoService");
 const accountsService = require("./AccountsService");
+const instagramService = require("../adapters/InstagramAdapter");
 const moment = require("moment");
+const logger = require("../utils/logger");
 const timeStepInQueue = 5 * 60; // five minutes
 
 class PublicationsQueueService extends GenericEntityService {
@@ -16,10 +18,18 @@ class PublicationsQueueService extends GenericEntityService {
             .filter(publication => publication.date >= timestamp);
     }
 
-    async scheduleVideoAtSpecificTime(accountId, videoId, timestamp) {
+
+    async getAllUnpublished() {
+        const all = await this.getAll();
+        return all
+            .filter(publication => !publication.published);
+    }
+
+    async scheduleVideoAtSpecificTime(publication, accountId, videoId, timestamp) {
         const account = await accountsService.get(accountId);
         const video = await videoService.get(videoId);
         const newPublication = await this.create({
+            publication,
             video,
             date: timestamp,
             account
@@ -29,7 +39,7 @@ class PublicationsQueueService extends GenericEntityService {
         return newPublication;
     }
 
-    async scheduleVideo(accountId, videoId) {
+    async scheduleVideo(publication, accountId, videoId) {
         const account = await accountsService.get(accountId);
         const video = await videoService.get(videoId);
         const now = moment().unix();
@@ -50,6 +60,7 @@ class PublicationsQueueService extends GenericEntityService {
                 scheduled = true;
 
                 newPublication = await this.create({
+                    publication,
                     video,
                     date: nextTimestampStep,
                     account
@@ -61,6 +72,25 @@ class PublicationsQueueService extends GenericEntityService {
         }
 
         return newPublication;
+    }
+
+    async publishVideo(accountId, publicationId) {
+        const publication = await this.get(publicationId);
+        const account = await accountsService.get(accountId);
+        const video = await videoService.get(publication.video.id);
+
+        if (account.type === 'instagram') {
+            logger.info(`Publish video to ${account.id} for video ${account.id}`);
+            try {
+                const result = await instagramService.publish(account, video, publication);
+                await videoService.update(video.id, {...video, published: true});
+            } catch (e) {
+                await videoService.update(video.id, {...video, published: true, failureMessage: JSON.stringify(e)});
+                logger.error(e);
+            }
+        } else {
+            throw Error("Not recognized type of account " + account.type);
+        }
     }
 }
 

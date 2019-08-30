@@ -9,13 +9,18 @@ class FeedsListenerJob {
 
     start() {
         logger.info("FeedsListenerJob started");
-        cron.schedule('* * * * *', async () => {
+        cron.schedule('*/5 * * * *', async () => {
             // prevent to run two processors at same time
             if (this.processingAnchor) return;
             this.processingAnchor = true;
             logger.info('Start to retrieve new feeds from integrations and downloading video files');
             const integrations = await integrationService.getAll();
-            await Promise.all(integrations.map(this.processIntegration.bind(this)));
+
+            // process it sequentially to not get throttled by adapter
+            for (let i = 0; i < integrations.length; i++) {
+                await this.processIntegration(integrations[i]);
+            }
+
             logger.info('Stop to retrieve new feeds from integrations and downloading video files');
             this.processingAnchor = false;
         });
@@ -26,7 +31,6 @@ class FeedsListenerJob {
 
         if (integration.lastSyncTime < now) {
             try {
-
                 // update processing time
                 await integrationService.update(integration.id, {...integration, lastSyncTime: now});
 
