@@ -41,7 +41,7 @@ class InstagramAdapter {
     }
 
     async getAvailablePublishTypes() {
-        return ["feed"];
+        return ["feed", "story"];
     }
 
     async publish(account, video, publication) {
@@ -57,17 +57,23 @@ class InstagramAdapter {
         });
 
         if (type === "feed") {
-            const feed = await this.uploadStoryWithMedia(ig, video.filepath, thumbnail, publication.publication);
+            const feed = await this.uploadVideo(ig, video.filepath, thumbnail, publication.publication);
             return {
                 success: true,
                 publication: feed
+            }
+        } else if (type === "story") {
+            const story = await this.uploadStory(ig, video.filepath, thumbnail);
+            return {
+                success: true,
+                publication: story
             }
         }
 
         throw Error(`Not supported type of publication ${type}`);
     }
 
-    async uploadStoryWithMedia(ig, filepath, thumbnailFilepath, publication) {
+    async uploadVideo(ig, filepath, thumbnailFilepath, publication) {
         const video = Buffer.from(fs.readFileSync(filepath, {encoding: 'binary'}), 'binary');
         const coverImage = Buffer.from(fs.readFileSync(thumbnailFilepath, {encoding: 'binary'}), 'binary');
 
@@ -76,6 +82,17 @@ class InstagramAdapter {
             video,
             coverImage,
             caption: publication.comment
+        });
+    }
+
+    async uploadStory(ig, filepath, thumbnailFilepath) {
+        const video = Buffer.from(fs.readFileSync(filepath, {encoding: 'binary'}), 'binary');
+        const coverImage = Buffer.from(fs.readFileSync(thumbnailFilepath, {encoding: 'binary'}), 'binary');
+
+        // upload video
+        return await ig.publish.story({
+            video,
+            coverImage
         });
     }
 }
