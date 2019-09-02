@@ -28,12 +28,12 @@ class AccountsService extends GenericEntityService {
         }
     }
 
-    async downloadChannelFeedsForSpecificAccount(accountId, channel, feed) {
+    async downloadChannelFeedsForSpecificAccount(accountId, channel, feed, integration) {
         const account = await this.get(accountId);
 
         if (account.type === 'instagram') {
             logger.info(`Download video from ${account.type} for feed ${JSON.stringify(feed)}`);
-            return await videoService.downloadFeedVideo(feed, account.type);
+            return await videoService.downloadFeedVideo(feed, account.type, integration);
         } else {
             throw Error("Not recognized type of account " + account.type);
         }

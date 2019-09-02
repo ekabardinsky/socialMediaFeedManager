@@ -24,3 +24,11 @@ a {
   margin-right: $base-margin !important;
   max-width: $base-component-width !important;
 }
+
+.field-with-border {
+  margin-top: $base-margin !important;
+  margin-right: $base-margin !important;
+  max-width: $base-component-width !important;
+  border:3px solid rgba(0,0,0,0.1);
+  border-radius: 10px
+}

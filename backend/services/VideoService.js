@@ -22,15 +22,15 @@ class VideoService extends GenericEntityService {
         }
     }
 
-    async downloadFeedVideo(feed, type) {
+    async downloadFeedVideo(feed, type, integration) {
         if (type === 'instagram') {
-            return await this.downloadInstagramFeedVideo(feed);
+            return await this.downloadInstagramFeedVideo(feed, integration);
         } else {
             throw Error("Not recognized type of account " + type);
         }
     }
 
-    async downloadInstagramFeedVideo(feed) {
+    async downloadInstagramFeedVideo(feed, integration) {
         const feeds = await this.getAll();
         const alreadyDownloadedFeed = feeds.find(downloadedFeed => downloadedFeed.feed.id === feed.id);
         if (alreadyDownloadedFeed) {
@@ -49,7 +49,8 @@ class VideoService extends GenericEntityService {
         await fs.writeFile(filepath, Buffer.from(body, 'binary'));
         return await this.create({
             feed,
-            filepath
+            filepath,
+            integration
         })
     }
 

@@ -1,6 +1,6 @@
 import {
     CHANGE_PAGE,
-    GET_ACCOUNT_CHANNELS,
+    GET_ACCOUNT_CHANNELS, GET_ACCOUNT_PUBLISHING_TYPES,
     GET_ACCOUNTS,
     GET_INTEGRATIONS,
     GET_SETTINGS,
@@ -37,4 +37,9 @@ export const getVideos = (videos) => ({
 export const getSettings = (settings) => ({
     type: GET_SETTINGS,
     payload: settings
+});
+
+export const getAccountPublishingTypes = (types) => ({
+    type: GET_ACCOUNT_PUBLISHING_TYPES,
+    payload: types
 });

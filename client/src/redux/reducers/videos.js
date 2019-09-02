@@ -1,7 +1,8 @@
-import {GET_VIDEOS} from "../actionTypes";
+import {GET_ACCOUNT_PUBLISHING_TYPES, GET_VIDEOS} from "../actionTypes";
 
 const initialState = {
-    videos: []
+    videos: [],
+    publishTypes: []
 };
 
 export default function (state = initialState, action) {
@@ -10,6 +11,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 videos: action.payload
+            }
+        }
+        case GET_ACCOUNT_PUBLISHING_TYPES: {
+            return {
+                ...state,
+                publishTypes: action.payload
             }
         }
         default:

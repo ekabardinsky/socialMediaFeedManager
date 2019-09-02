@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PageSkeleton from "../component/PageSkeleton/PageSkeleton";
 import Grid from "@material-ui/core/Grid";
-import {getVideos} from "../redux/actions";
+import {getSettings, getVideos} from "../redux/actions";
 import {connect} from "react-redux";
 import VideoItem from "../component/Videos/VideoItem";
 import {get} from "../utils/Api";
@@ -10,7 +10,8 @@ class Videos extends Component {
     constructor(props) {
         super(props);
 
-        get(`/api/videos?published=false`, this.props.getVideos);
+        get(`/api/videos?queued=false`, this.props.getVideos);
+        get(`/api/settings/current`, this.props.getSettings);
     }
 
     render() {
@@ -35,7 +36,7 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = {getVideos};
+const mapDispatchToProps = {getVideos, getSettings};
 
 export default connect(
     mapStateToProps,

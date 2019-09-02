@@ -66,7 +66,7 @@ class PublicationsQueueService extends GenericEntityService {
                     account
                 });
 
-                await videoService.update(videoId, {...video, schedule: newPublication});
+                await videoService.update(videoId, {...video, schedule: newPublication, queued: true});
             }
             currentTimestampStep += timeStepInQueue;
         }

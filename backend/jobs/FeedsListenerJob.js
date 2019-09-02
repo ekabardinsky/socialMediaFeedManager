@@ -46,7 +46,7 @@ class FeedsListenerJob {
                     // downloading all videos start by lastSyncTime
                     return await Promise.all(
                         feeds.map(async feed => {
-                            return await accountService.downloadChannelFeedsForSpecificAccount(accountId, channelId, feed);
+                            return await accountService.downloadChannelFeedsForSpecificAccount(accountId, channelId, feed, integration);
                         })
                     );
                 } else {
