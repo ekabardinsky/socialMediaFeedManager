@@ -10,7 +10,7 @@ class Videos extends Component {
     constructor(props) {
         super(props);
 
-        get(`/api/videos`, this.props.getVideos);
+        get(`/api/videos?published=false`, this.props.getVideos);
     }
 
     render() {
