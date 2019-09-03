@@ -2,7 +2,7 @@ import {
     CHANGE_PAGE,
     GET_ACCOUNT_CHANNELS, GET_ACCOUNT_PUBLISHING_TYPES,
     GET_ACCOUNTS,
-    GET_INTEGRATIONS,
+    GET_INTEGRATIONS, GET_PUBLISHING_QUEUE_ITEMS,
     GET_SETTINGS,
     GET_VIDEOS
 } from "./actionTypes";
@@ -41,5 +41,10 @@ export const getSettings = (settings) => ({
 
 export const getAccountPublishingTypes = (types) => ({
     type: GET_ACCOUNT_PUBLISHING_TYPES,
+    payload: types
+});
+
+export const getPublishingQueueItems = (types) => ({
+    type: GET_PUBLISHING_QUEUE_ITEMS,
     payload: types
 });

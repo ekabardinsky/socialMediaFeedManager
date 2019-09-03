@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PageSkeleton from "../component/PageSkeleton/PageSkeleton";
+import PageSkeleton from "../component/Common/PageSkeleton";
 import {connect} from "react-redux";
 import {getAccounts} from "../redux/actions";
 import {get} from "../utils/Api";

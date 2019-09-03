@@ -4,5 +4,6 @@ import accounts from "./accounts"
 import integrations from "./integrations"
 import videos from "./videos"
 import settings from "./settings"
+import publishQueue from "./publishQueue"
 
-export default combineReducers({page, accounts, integrations, videos, settings});
+export default combineReducers({page, accounts, integrations, videos, settings, publishQueue});

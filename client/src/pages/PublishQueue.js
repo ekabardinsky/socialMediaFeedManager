@@ -1,48 +1,47 @@
 import React, {Component} from 'react';
 import PageSkeleton from "../component/Common/PageSkeleton";
 import Grid from "@material-ui/core/Grid";
-import {getSettings, getVideos} from "../redux/actions";
+import {getPublishingQueueItems} from "../redux/actions";
 import {connect} from "react-redux";
-import VideoItem from "../component/Videos/VideoItem";
 import {get} from "../utils/Api";
+import PublishQueueItem from "../component/PublishQueue/PublishQueueItem";
 import FilteringPanel from "../component/Common/FilteringPanel";
 
-class Videos extends Component {
+class PublishQueue extends Component {
     constructor(props) {
         super(props);
 
-        get(`/api/videos?queued=false`, this.props.getVideos);
-        get(`/api/settings/current`, this.props.getSettings);
+        get(`/api/publicationsQueue?published=false`, this.props.getPublishingQueueItems);
     }
 
     filterItems = [
         {
-            key: `/api/videos?queued=false`,
-            description: "Not queued"
+            key: `/api/publicationsQueue?published=false`,
+            description: "Not published"
         },
         {
-            key: `/api/videos?queued=true`,
-            description: "Queued"
+            key: `/api/publicationsQueue?published=true`,
+            description: "Published"
         },
         {
-            key: `/api/videos`,
+            key: `/api/publicationsQueue`,
             description: "All"
         }
     ];
 
     filtering(filteringItem) {
-        get(filteringItem.key, this.props.getVideos);
+        get(filteringItem.key, this.props.getPublishingQueueItems);
     }
 
     render() {
-        const {videos} = this.props;
+        const {queueItems} = this.props;
         return (
             <PageSkeleton>
                 <FilteringPanel filterItems={this.filterItems} label={"Filter"} callback={this.filtering.bind(this)}/>
                 <Grid container direction="row" spacing={3}>
                     {
-                        videos.map(video => {
-                            return <Grid item xs={3} key={video.id}><VideoItem video={video}/></Grid>
+                        queueItems.map(queueItem => {
+                            return <Grid item xs={3} key={queueItem.id}><PublishQueueItem queueItem={queueItem}/></Grid>
                         })
                     }
                 </Grid>
@@ -53,13 +52,13 @@ class Videos extends Component {
 
 const mapStateToProps = state => {
     return {
-        videos: state.videos.videos ? state.videos.videos : []
+        queueItems: state.publishQueue.items ? state.publishQueue.items : []
     }
 };
 
-const mapDispatchToProps = {getVideos, getSettings};
+const mapDispatchToProps = {getPublishingQueueItems};
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Videos);
+)(PublishQueue);

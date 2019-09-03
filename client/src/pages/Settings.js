@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PageSkeleton from "../component/PageSkeleton/PageSkeleton";
+import PageSkeleton from "../component/Common/PageSkeleton";
 import {getSettings} from "../redux/actions";
 import {connect} from "react-redux";
 import Settings from "../component/Settings/Settings";

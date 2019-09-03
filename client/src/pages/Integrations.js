@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PageSkeleton from "../component/PageSkeleton/PageSkeleton";
+import PageSkeleton from "../component/Common/PageSkeleton";
 import NewIntegration from "../component/Integrations/NewIntegration";
 import IntegrationItem from "../component/Integrations/IntegrationItem";
 import {get} from "../utils/Api";
