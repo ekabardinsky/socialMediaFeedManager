@@ -6,6 +6,7 @@ import Videos from './pages/Videos';
 import Settings from "./pages/Settings";
 import styles from './index.scss';
 import PublishQueue from "./pages/PublishQueue";
+import Login from "./pages/Login";
 
 // eslint-disable-next-line
 styles.section;
@@ -20,6 +21,7 @@ export default class App extends Component {
                 <Route exact path='/videos' render={() => <Videos/>}/>
                 <Route exact path='/settings' render={() => <Settings/>}/>
                 <Route exact path='/publishQueue' render={() => <PublishQueue/>}/>
+                <Route exact path='/login' render={() => <Login/>}/>
             </Switch>
         );
     }
