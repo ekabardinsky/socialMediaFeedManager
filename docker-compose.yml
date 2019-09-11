@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    build: ./client
+    volumes:
+      - /home/ekabardinsky/Documents/socialMediaFeedManager/media:/usr/share/nginx/media
+    ports:
+      - 8080:80
+    links:
+      - backend
+  backend:
+    build: ./backend
+    environment:
+      USERNAME: admin
+      PASSWORD: admin
+      SECRET: "my_very_strong_secret"
+    volumes:
+      - /home/ekabardinsky/Documents/socialMediaFeedManager/storage:/usr/src/media-manager-app/storage
