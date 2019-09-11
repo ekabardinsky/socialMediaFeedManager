@@ -9,7 +9,7 @@ export default function (state = initialState, action) {
         case GET_PUBLISHING_QUEUE_ITEMS: {
             return {
                 ...state,
-                items: action.payload
+                items: action.payload ? action.payload.sort((one, two) => two.date - one.date) : action.payload
             }
         }
         default:

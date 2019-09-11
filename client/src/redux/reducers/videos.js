@@ -10,7 +10,7 @@ export default function (state = initialState, action) {
         case GET_VIDEOS: {
             return {
                 ...state,
-                videos: action.payload
+                videos: action.payload ? action.payload.sort((one, two) => two.feed.taken_at - one.feed.taken_at) : action.payload
             }
         }
         case GET_ACCOUNT_PUBLISHING_TYPES: {
