@@ -5,13 +5,6 @@ const path = require('path');
 class StorageService {
 
     async checkResourceStorage(resourceName) {
-        const directories = await fs.readdir("./");
-
-        // in case if no storage folder - just create it
-        if (!directories.find(dir => dir === storageFolder)) {
-            await fs.mkdir(storageFolder);
-        }
-
         // let's read resources
         const resources = await fs.readdir(`${storageFolder}${path.sep}`);
 

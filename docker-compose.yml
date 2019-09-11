@@ -16,3 +16,4 @@ services:
       SECRET: "my_very_strong_secret"
     volumes:
       - /home/ekabardinsky/Documents/socialMediaFeedManager/storage:/usr/src/media-manager-app/storage
+      - /home/ekabardinsky/Documents/socialMediaFeedManager/media:/usr/src/media-manager-app/media

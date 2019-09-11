@@ -57,7 +57,7 @@ class VideoService extends GenericEntityService {
     async generateThumbnail(videoId, options) {
         const video = await this.get(videoId);
         const tg = new ThumbnailGenerator.default({
-            sourcePath: video.filepath,
+            sourcePath: `${process.cwd()}${path.sep}${video.filepath}`,
             thumbnailPath: `${mediaFilesStore}${path.sep}`
         });
 
