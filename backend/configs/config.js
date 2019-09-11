@@ -1,7 +1,7 @@
 module.exports = {
     authorization: {
-        username: "ekabardinsky@gmail.com",
-        password: "123123123",
-        secret: "my_supper_strong_secret"
+        username: process.env.USERNAME,
+        password: process.env.PASSWORD,
+        secret: process.env.SECRET
     }
 };
