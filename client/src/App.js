@@ -13,6 +13,11 @@ styles.section;
 
 export default class App extends Component {
     render() {
+        const access_token = window.localStorage.getItem('access_token');
+        if (!access_token && !window.location.href.includes("/login")) {
+            window.location.href = '/login';
+        }
+
         return (
             <Switch>
                 <Route exact path='/' render={() => <Accounts/>}/>

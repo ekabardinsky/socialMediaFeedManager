@@ -36,6 +36,11 @@ class PageSkeleton extends Component {
         this.handleClose();
     }
 
+    logout() {
+        window.localStorage.removeItem('access_token');
+        window.location.href = '/login';
+    }
+
     render() {
         const {anchorEl} = this.state;
         const {pageName} = this.props;
@@ -63,6 +68,7 @@ class PageSkeleton extends Component {
                             <Link to="./videos"><MenuItem onClick={pickAPage("Videos")}>Videos</MenuItem></Link>
                             <Link to="./settings"><MenuItem onClick={pickAPage("Settings")}>Settings</MenuItem></Link>
                             <Link to="./publishQueue"><MenuItem onClick={pickAPage("PublishQueue")}>PublishQueue</MenuItem></Link>
+                            <MenuItem onClick={this.logout}>Log out</MenuItem>
                         </Menu>
                         <Typography variant="h6">
                             {pageName}

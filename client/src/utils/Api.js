@@ -1,10 +1,14 @@
 import request from 'request-promise';
 
 function apiCall(uri, method, body, action, failureAction) {
+    const access_token = window.localStorage.getItem('access_token');
     return request({
         method,
         uri: window.location.origin + uri,
         body,
+        headers: {
+          "Authorization": `Bearer ${access_token}`
+        },
         json: true
     }).then(response => {
         if (action) {

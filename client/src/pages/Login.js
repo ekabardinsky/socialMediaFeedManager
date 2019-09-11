@@ -6,10 +6,6 @@ import Login from "../component/Login/Login";
 import PageSkeleton from "../component/Common/PageSkeleton";
 
 class Videos extends Component {
-    constructor(props) {
-        super(props);
-
-    }
 
     render() {
         return (
@@ -24,9 +20,7 @@ class Videos extends Component {
 }
 
 const mapStateToProps = state => {
-    return {
-        videos: state.videos.videos ? state.videos.videos : []
-    }
+    return {}
 };
 
 const mapDispatchToProps = {getVideos, getSettings};
