@@ -4,7 +4,7 @@ const accountsService = require("./AccountsService");
 const instagramService = require("../adapters/InstagramAdapter");
 const moment = require("moment");
 const logger = require("../utils/logger");
-const timeStepInQueue = 5 * 60; // five minutes
+const timeStepInQueue = 60 * 60; // 60 minutes
 
 class PublicationsQueueService extends GenericEntityService {
     constructor() {
