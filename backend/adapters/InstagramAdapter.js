@@ -95,6 +95,43 @@ class InstagramAdapter {
             coverImage
         });
     }
+
+    async isChallengeRequired(account) {
+        try {
+            await this.getChannels(account);
+        } catch (e) {
+            return e.name === "IgCheckpointError";
+        }
+
+        return false;
+    }
+
+    async startChallenge(account) {
+        // retry login
+        const ig = new IgApiClient();
+        try {
+            ig.state.generateDevice(account.username);
+            await ig.simulate.preLoginFlow();
+            const auth = await ig.account.login(account.username, account.password);
+            await ig.simulate.postLoginFlow();
+            this.loggedInUsers[account.username] = {ig, auth};
+
+        } catch (e) {
+            // just ignore exception
+            this.loggedInUsers[account.username] = {ig};
+        }
+
+        logger.info(`Start challenge for ${account.id}. Details: ${JSON.stringify(ig.state.checkpoint)}`)
+        await ig.challenge.auto(true); // Requesting sms-code or click "It was me" button
+        logger.info(`Started challenge for ${account.id}. Details: ${JSON.stringify(ig.state.checkpoint)}`)
+
+    }
+
+    async submitChallengeChallenge(account, code) {
+        const {ig} = await this.getClient(account);
+        await ig.challenge.sendSecurityCode(code);
+        this.loggedInUsers[account.username] = await this.login(account);
+    }
 }
 
 // kind of singleton

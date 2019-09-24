@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import {del, get, put} from "../../utils/Api";
+import {del, get, post, put} from "../../utils/Api";
 
 class AccountItem extends Component {
     constructor(props) {
@@ -17,8 +17,29 @@ class AccountItem extends Component {
             username: this.props.account.username,
             password: this.props.account.password,
             isNeedToSave: false,
-            edit: false
+            edit: false,
+            challengeRequired: this.props.account.challengeRequired,
+            challengeStarted: false,
+            code: ""
         }
+    }
+
+    handlingChallengeCodeChange(code) {
+        this.setState({code: code.target.value})
+    }
+
+    startChallenge() {
+        post(`/api/accounts/${this.props.account.id}/challenge/start`, {}, () => {
+            this.setState({challengeStarted: true})
+        })
+    }
+
+    sendChallengeCode() {
+        const code = this.state.code;
+        post(`/api/accounts/${this.props.account.id}/challenge/submit`, {code}, () => {
+            get("/api/accounts", this.props.getAccounts);
+        });
+        this.setState({challengeStarted: false});
     }
 
     handlingUsernameChange(username) {
@@ -58,7 +79,7 @@ class AccountItem extends Component {
 
     render() {
         const account = this.props.account;
-        const {isNeedToSave, username, password, edit} = this.state;
+        const {isNeedToSave, username, password, edit, code, challengeRequired, challengeStarted} = this.state;
         const disableSaveButton = !(isNeedToSave && username && password);
 
         return <Card elevation={4}>
@@ -88,12 +109,26 @@ class AccountItem extends Component {
                             fullWidth={true}
                         />
                     </Grid>
+
+                    {challengeStarted && <Grid item xs={6}>
+                        <TextField
+                            label="Code"
+                            onChange={this.handlingChallengeCodeChange.bind(this)}
+                            value={code}
+                            fullWidth={true}
+                        />
+                    </Grid>}
                 </Grid>
             </CardContent>
             <CardActions>
-                <Button disabled={disableSaveButton} size="small" onClick={this.handleSave.bind(this)}>Save</Button>
-                <Button size="small" onClick={this.handleEdit.bind(this)}>Edit</Button>
-                <Button size="small" onClick={this.handleDelete.bind(this)}>Delete</Button>
+                {!challengeRequired &&
+                <Button disabled={disableSaveButton} size="small" onClick={this.handleSave.bind(this)}>Save</Button>}
+                {!challengeRequired && <Button size="small" onClick={this.handleEdit.bind(this)}>Edit</Button>}
+                {!challengeRequired && <Button size="small" onClick={this.handleDelete.bind(this)}>Delete</Button>}
+                {challengeRequired && !challengeStarted &&
+                <Button size="small" onClick={this.startChallenge.bind(this)}>Start challenge</Button>}
+                {challengeRequired && challengeStarted &&
+                <Button size="small" onClick={this.sendChallengeCode.bind(this)}>Submit code</Button>}
             </CardActions>
         </Card>
     }

@@ -3,4 +3,5 @@ export default interface Account {
     username: string;
     password: string;
     type: string;
+    challengeRequired: string;
 }

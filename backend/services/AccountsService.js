@@ -48,6 +48,38 @@ class AccountsService extends GenericEntityService {
             throw Error("Not recognized type of account " + account.type);
         }
     }
+
+    async isChallengeRequired(accountId) {
+        const account = await this.get(accountId);
+
+        if (account.type === 'instagram') {
+            return await instagramService.isChallengeRequired(account);
+        } else {
+            throw Error("Not recognized type of account " + account.type);
+        }
+    }
+
+    async startChallenge(accountId) {
+        const account = await this.get(accountId);
+
+        if (account.type === 'instagram') {
+            return await instagramService.startChallenge(account);
+        } else {
+            throw Error("Not recognized type of account " + account.type);
+        }
+    }
+
+    async submitChallengeChallenge(accountId, code) {
+        const account = await this.get(accountId);
+
+        if (account.type === 'instagram') {
+            await instagramService.submitChallengeChallenge(account, code);
+            account.challengeRequired = false;
+            this.update(accountId, account);
+        } else {
+            throw Error("Not recognized type of account " + account.type);
+        }
+    }
 }
 
 

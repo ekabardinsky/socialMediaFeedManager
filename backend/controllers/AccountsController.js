@@ -11,6 +11,16 @@ class AccountsController extends GenericController {
         router.post(`/${service.resourceName}/:id/channels/:channel/feeds/:feed`, this.downloadChannelFeedsForSpecificAccount);
         router.post(`/${service.resourceName}/:id/videos/:videoId/schedule`, this.scheduleVideo);
         router.get(`/${service.resourceName}/:id/publishTypes`, this.getAllAdapterPublishTypes);
+        router.post(`/${service.resourceName}/:id/challenge/start`, this.startChallenge);
+        router.post(`/${service.resourceName}/:id/challenge/submit`, this.submitChallengeChallenge);
+    }
+
+    async startChallenge(req, res) {
+        res.json(await service.startChallenge(req.params.id));
+    }
+
+    async submitChallengeChallenge(req, res) {
+        res.json(await service.submitChallengeChallenge(req.params.id, req.body.code));
     }
 
     async getAllAdapterPublishTypes(req, res) {
